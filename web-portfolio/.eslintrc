@@ -1,7 +1,7 @@
 {
-	"extends": ["next/core-web-vitals", "eslint:recommended"],
 	"root": true,
 	"env": { "browser": true, "es2021": true, "node": true },
+	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
 	"parser": "@typescript-eslint/typescript-estree",
 	"ignorePatterns": ["dist/**/*", "src/data/**/*", "node_modules/**/*"],
 	"parserOptions": {
