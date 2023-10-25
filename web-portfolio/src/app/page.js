@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import NavBar from './components/NavBar';
 import HeroSection from './components/HeroSection';
+import AchiveSection from './components/AchiveSection';
 import AboutSection from './components/AboutSection';
 import ProjectSection from './components/ProjectSection';
 import EmailSection from './components/EmailSection';
+import Footer from './components/Footer';
 
 export default function Home() {
 	return (
@@ -11,10 +13,11 @@ export default function Home() {
 			<NavBar />
 			<div className='container mx-auto mt-40'>
 				<HeroSection />
+				<AchiveSection />
 				<AboutSection />
 				<ProjectSection />
 				<EmailSection />
-
+				<Footer />
 			</div>
 		</main>
 	);
