@@ -9,7 +9,6 @@ const TAB_DATA = [
 		id: 'skills',
 		content: (
 			<ul className="list-disc pl-2">
-				<li>Sequelize</li>
 				<li>JavaScript</li>
 				<li>TypeScript</li>
 				<li>React</li>
@@ -62,7 +61,7 @@ const AboutSection = () => {
             looking to expand my knowledge and skill set. I am a team player and
             I am excited to work with others to create amazing applications.
 					</p>
-					<div className="flex flex-row justify-start mt-8">
+					<div className="flex flex-row justify-start gap-8 mt-8">
 						<TabButton
 							selectTab={() => handleTabChange('skills')}
 							active={tab === 'skills'}

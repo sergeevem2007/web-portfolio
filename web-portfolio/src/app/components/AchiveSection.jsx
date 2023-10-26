@@ -1,15 +1,9 @@
 'use client';
 import React from 'react';
-import dynamic from 'next/dynamic';
+import { TypeAnimation } from 'react-type-animation';
 
-// const AnimatedNumbers = dynamic(
-// 	() => {
-// 		return import('react-animated-numbers');
-// 	},
-// 	{ ssr: false }
-// );
 
-const achiveList = [
+const achievementsList = [
 	{
 		metric: 'Projects',
 		value: '100',
@@ -18,7 +12,8 @@ const achiveList = [
 	{
 		prefix: '~',
 		metric: 'Users',
-		value: '100,000',
+		value: '100',
+		postfix: 'K',
 	},
 	{
 		metric: 'Awards',
@@ -30,11 +25,11 @@ const achiveList = [
 	},
 ];
 
-const achiveSection = () => {
+const AchiveSection = () => {
 	return (
 		<div className='py-8 px-4 xl:gap-16 sm:py-16 xl:px-16'>
 			<div className='sm:border-[#33353F] sm:border rounded-md py-8 px-16 flex flex-col sm:flex-row items-center justify-between'>
-				{achiveList.map((achievement, index) => {
+				{achievementsList.map((achievement, index) => {
 					return (
 						<div
 							key={index}
@@ -42,19 +37,16 @@ const achiveSection = () => {
 						>
 							<h2 className='text-white text-4xl font-bold flex flex-row'>
 								{achievement.prefix}
-								{/* <AnimatedNumbers
-									includeComma
-									animateToNumber={parseInt(achievement.value)}
-									locale='en-US'
-									className='text-white text-4xl font-bold'
-									configs={(_, index) => {
-										return {
-											mass: 1,
-											friction: 100,
-											tensions: 140 * (index + 1),
-										};
-									}}
-								/> */}
+								<TypeAnimation
+									sequence={[
+										achievement.value,
+										3000,
+									]}
+									wrapper='span'
+									speed={50}
+									repeat={1}
+									cursor={false}
+								/>
 								{achievement.postfix}
 							</h2>
 							<p className='text-[#ADB7BE] text-base'>{achievement.metric}</p>
@@ -66,4 +58,4 @@ const achiveSection = () => {
 	);
 };
 
-export default achiveSection;
+export default AchiveSection;
