@@ -1,81 +1,51 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ProjectCard from './ProjectCard';
 import ProjectTag from './ProjectTag';
 import { motion, useInView } from 'framer-motion';
 
-const projectsData = [
-	{
-		id: 1,
-		title: 'React Portfolio Website',
-		description: 'Project 1 description',
-		image: '/images/600x400.png',
-		tag: ['All', 'Web'],
-		gitUrl: '/',
-		previewUrl: '/',
-	},
-	{
-		id: 2,
-		title: 'Potography Portfolio Website',
-		description: 'Project 2 description',
-		image: '/images/600x400.png',
-		tag: ['All', 'Web'],
-		gitUrl: '/',
-		previewUrl: '/',
-	},
-	{
-		id: 3,
-		title: 'E-commerce Application',
-		description: 'Project 3 description',
-		image: '/images/600x400.png',
-		tag: ['All', 'Web'],
-		gitUrl: '/',
-		previewUrl: '/',
-	},
-	{
-		id: 4,
-		title: 'Food Ordering Application',
-		description: 'Project 4 description',
-		image: '/images/600x400.png',
-		tag: ['All', 'Mobile'],
-		gitUrl: '/',
-		previewUrl: '/',
-	},
-	{
-		id: 5,
-		title: 'React Firebase Template',
-		description: 'Authentication and CRUD operations',
-		image: '/images/600x400.png',
-		tag: ['All', 'Web'],
-		gitUrl: '/',
-		previewUrl: '/',
-	},
-	{
-		id: 6,
-		title: 'Full-stack Roadmap',
-		description: 'Project 5 description',
-		image: '/images/600x400.png',
-		tag: ['All', 'Web'],
-		gitUrl: '/',
-		previewUrl: '/',
-	},
-];
+const container = {
+	hidden: { opacity: 1, scale: 0 },
+	visible: {
+		opacity: 1,
+		scale: 1,
+		transition: {
+			delayChildren: 0.3,
+			staggerChildren: 0.2
+		}
+	}
+};
 
 const ProjectsSection = () => {
 	const [tag, setTag] = useState('All');
 	const ref = useRef(null);
 	const isInView = useInView(ref, { once: true });
+	const [data, setData] = useState(null);
+	const [isLoading, setLoading] = useState(true);
+
+
+	useEffect(() => {
+		fetch('http://localhost:4000/projects')
+			.then((res) => res.json())
+			.then((data) => {
+				setData(data);
+				setLoading(false);
+			});
+	}, []);
+
+	if (isLoading) return <p>Loading...</p>;
+	if (!data) return <p>No data</p>;
 
 	const handleTagChange = (newTag) => {
 		setTag(newTag);
 	};
 
-	const filteredProjects = projectsData.filter((project) =>
+	const filteredProjects = data.filter((project) =>
 		project.tag.includes(tag)
 	);
 
 	const cardVariants = {
-		initial: { y: 50, opacity: 0 },
+		initial: { y: 20, opacity: 1 },
 		animate: { y: 0, opacity: 1 },
 	};
 
@@ -101,26 +71,31 @@ const ProjectsSection = () => {
 					isSelected={tag === 'Mobile'}
 				/>
 			</div>
-			<ul ref={ref} className='grid md:grid-cols-3 gap-8 md:gap-12 content-stretch'>
+			<motion.ul ref={ref}
+				className='grid md:grid-cols-3 gap-8 md:gap-12 content-stretch'
+				variants={container}
+				initial="visible"
+				animate="visible"
+			>
 				{filteredProjects.map((project, index) => (
 					<motion.li
 						key={index}
 						variants={cardVariants}
 						initial='initial'
 						animate={isInView ? 'animate' : 'initial'}
-						transition={{ duration: 0.3, delay: index * 0.4 }}
+						transition={{ duration: 0.3, delay: index * 0.2 }}
 					>
 						<ProjectCard
-							key={project.id}
+							id={project.id}
 							title={project.title}
 							description={project.description}
 							imgUrl={project.image}
 							gitUrl={project.gitUrl}
-							previewUrl={project.previewUrl}
+							slug={project.slug}
 						/>
 					</motion.li>
 				))}
-			</ul>
+			</motion.ul>
 		</section>
 	);
 };

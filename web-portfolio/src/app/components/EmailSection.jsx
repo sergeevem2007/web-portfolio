@@ -53,7 +53,7 @@ const EmailSection = () => {
 							Email sent successfully!
 							</p>
 							<button
-								className='bg-primary-500 hover:bg-primary-600 text-slate-500 dark:text-white font-medium py-2.5 px-5 rounded-lg w-full'
+								className='bg-primary-500 hover:bg-primary-600 hover:text-white text-slate-500 dark:text-white font-medium py-2.5 px-5 rounded-lg w-full'
 								type='button'
 								onClick={() => {setEmailSubmitted(false);}}>
 									Send Again
@@ -74,7 +74,7 @@ const EmailSection = () => {
 									type='email'
 									id='email'
 									required
-									className='bg-slate-50 dark:bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5'
+									className='bg-slate-50 dark:bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-slate:500 black:text-gray-100 text-sm rounded-lg block w-full p-2.5'
 									placeholder='jacob@google.com'
 								/>
 							</div>
@@ -90,7 +90,7 @@ const EmailSection = () => {
 									type='text'
 									id='subject'
 									required
-									className='bg-slate-50 dark:bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5'
+									className='bg-slate-50 dark:bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-slate:500 black:text-gray-100 text-sm rounded-lg block w-full p-2.5'
 									placeholder='Just saying hi'
 								/>
 							</div>
@@ -104,7 +104,7 @@ const EmailSection = () => {
 								<textarea
 									name='message'
 									id='message'
-									className='bg-slate-50 dark:bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-gray-100 text-sm rounded-lg block w-full p-2.5'
+									className='bg-slate-50 dark:bg-[#18191E] border border-[#33353F] placeholder-[#9CA2A9] text-slate:500 black:text-gray-100 text-sm rounded-lg block w-full p-2.5'
 									placeholder='Let`s talk about...'
 									rows={8}
 									style={{ resize: 'none' }}

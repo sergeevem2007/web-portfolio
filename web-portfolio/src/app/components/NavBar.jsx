@@ -53,7 +53,7 @@ const NavBar = () => {
 								<NavLink href={link.path} title={link.title} />
 							</li>
 						))}
-						<li  key={'themeSwitcher'}>
+						<li key={'themeSwitcher'}>
 							<ButtonSwitcher />
 						</li>
 					</ul>

@@ -40,8 +40,8 @@ const HeroSection = () => {
 					<p className='text-[#ADB7BE] text-base lg:text-lg max-w-lg'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi eveniet soluta iste. Vel ipsum iste distinctio?</p>
 					<div className='flex flex-col sm:flex-row gap-5 mt-6'>
 						<Link
-							href='/contact'
-							className='px-16 inline-block py-3 w-full sm:w-fit rounded-full text-white bg-gradient-to-br from-primary-500 to-secondary-500 hover:shadow-md hover:shadow-indigo-500/50 text-slate-500 dark:text-white'
+							href='#contact'
+							className='px-16 inline-block py-3 w-full sm:w-fit rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 hover:shadow-md hover:shadow-indigo-500/50 text-slate-500 dark:text-white'
 						>
               Hire Me
 						</Link>

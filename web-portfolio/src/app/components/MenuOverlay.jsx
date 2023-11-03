@@ -1,5 +1,6 @@
 import React from 'react';
 import NavLink from './NavLink';
+import ButtonSwitcher from './ButtonSwitcher';
 
 const MenuOverlay = ({ links }) => {
 	return (
@@ -9,6 +10,9 @@ const MenuOverlay = ({ links }) => {
 					<NavLink href={link.path} title={link.title} />
 				</li>
 			))}
+			<li  key={'themeSwitcher'}>
+				<ButtonSwitcher />
+			</li>
 		</ul>
 	);
 };
