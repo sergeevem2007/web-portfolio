@@ -3,7 +3,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import ProjectCard from './ProjectCard';
 import ProjectTag from './ProjectTag';
 import { motion, useInView } from 'framer-motion';
+import getProjects from '../../../utils/getProjects';
 
+const data = getProjects();
 const container = {
 	hidden: { opacity: 1, scale: 0 },
 	visible: {
@@ -16,33 +18,29 @@ const container = {
 	}
 };
 
-const ProjectsSection = () => {
+export default function ProjectsSection({ data }) {
 	const [tag, setTag] = useState('All');
 	const ref = useRef(null);
 	const isInView = useInView(ref, { once: true });
-	const [data, setData] = useState(null);
-	const [isLoading, setLoading] = useState(true);
-
+	const [dataBase, setData] = useState(data);
+	const [isLoading, setLoading] = useState(false);
 
 	useEffect(() => {
-		fetch('http://localhost:4000/projects')
-			.then((res) => res.json())
-			.then((data) => {
-				setData(data);
-				setLoading(false);
-			});
+		console.log(data);
 	}, []);
 
 	if (isLoading) return <p>Loading...</p>;
-	if (!data) return <p>No data</p>;
+	if (dataBase) return <p>No data</p>;
 
 	const handleTagChange = (newTag) => {
 		setTag(newTag);
 	};
 
-	const filteredProjects = data.filter((project) =>
-		project.tag.includes(tag)
+	const filteredProjects = dataBase?.filter((project) => 
+		console.log(project.tag)
+		// project.tag(tag)
 	);
+
 
 	const cardVariants = {
 		initial: { y: 20, opacity: 1 },
@@ -98,6 +96,4 @@ const ProjectsSection = () => {
 			</motion.ul>
 		</section>
 	);
-};
-
-export default ProjectsSection;
+}
