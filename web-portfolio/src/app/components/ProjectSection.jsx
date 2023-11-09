@@ -27,7 +27,7 @@ export default function ProjectsSection({ data }) {
 
 	useEffect(() => {
 		console.log(data);
-	}, []);
+	}, [data]);
 
 	if (isLoading) return <p>Loading...</p>;
 	if (dataBase) return <p>No data</p>;
