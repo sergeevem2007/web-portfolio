@@ -3,9 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import ProjectCard from './ProjectCard';
 import ProjectTag from './ProjectTag';
 import { motion, useInView } from 'framer-motion';
-import getProjects from '../../../utils/getProjects';
+import supabase from '../../../utils/supabase';
 
-const data = getProjects();
 const container = {
 	hidden: { opacity: 1, scale: 0 },
 	visible: {
@@ -26,8 +25,15 @@ export default function ProjectsSection({ data }) {
 	const [isLoading, setLoading] = useState(false);
 
 	useEffect(() => {
-		console.log(data);
-	}, [data]);
+		getProjects();
+	}, []);
+
+	async function getProjects() {
+		const { data, error } = await supabase
+			.from('projects')
+			.select('');
+		return data;
+	}
 
 	if (isLoading) return <p>Loading...</p>;
 	if (dataBase) return <p>No data</p>;
@@ -36,7 +42,7 @@ export default function ProjectsSection({ data }) {
 		setTag(newTag);
 	};
 
-	const filteredProjects = dataBase?.filter((project) => 
+	const filteredProjects = dataBase?.filter((project) =>
 		console.log(project.tag)
 		// project.tag(tag)
 	);
