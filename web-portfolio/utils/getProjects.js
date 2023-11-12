@@ -1,6 +1,6 @@
 import supabase from './supabase';
 
-export default async function getProjects1() {
+export default async function getProjects() {
 	const { data, error } = await supabase
 		.from('projects')
 		.select('');

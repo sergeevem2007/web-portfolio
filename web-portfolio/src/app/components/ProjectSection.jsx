@@ -1,9 +1,9 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ProjectCard from './ProjectCard';
 import ProjectTag from './ProjectTag';
 import { motion, useInView } from 'framer-motion';
-import supabase from '../../../utils/supabase';
+import getProjects from '../../../utils/getProjects';
 
 const container = {
 	hidden: { opacity: 1, scale: 0 },
@@ -17,36 +17,30 @@ const container = {
 	}
 };
 
-export default function ProjectsSection({ data }) {
-	const [tag, setTag] = useState('All');
+export default function ProjectsSection() {
+	const [tagName, setTag] = useState('All');
 	const ref = useRef(null);
 	const isInView = useInView(ref, { once: true });
-	const [dataBase, setData] = useState(data);
-	const [isLoading, setLoading] = useState(false);
+	const [data, setData] = useState(null);
+	const [isLoading, setLoading] = useState(true);
 
 	useEffect(() => {
-		getProjects();
+		getProjects().then(res => {
+			return setData(res);
+		});
+		setLoading(false);
 	}, []);
 
-	async function getProjects() {
-		const { data, error } = await supabase
-			.from('projects')
-			.select('');
-		return data;
-	}
-
-	if (isLoading) return <p>Loading...</p>;
-	if (dataBase) return <p>No data</p>;
+	if (isLoading) return <p className='text-xl text-center my-10'>Loading...</p>;
 
 	const handleTagChange = (newTag) => {
 		setTag(newTag);
 	};
 
-	const filteredProjects = dataBase?.filter((project) =>
-		console.log(project.tag)
-		// project.tag(tag)
+	const filteredProjects = data?.filter((project) => {
+		return project ? Object.hasOwn(project.tag, tagName) : false;
+	}
 	);
-
 
 	const cardVariants = {
 		initial: { y: 20, opacity: 1 },
@@ -62,17 +56,17 @@ export default function ProjectsSection({ data }) {
 				<ProjectTag
 					onClick={handleTagChange}
 					name='All'
-					isSelected={tag === 'All'}
+					isSelected={tagName === 'All'}
 				/>
 				<ProjectTag
 					onClick={handleTagChange}
 					name='Web'
-					isSelected={tag === 'Web'}
+					isSelected={tagName === 'Web'}
 				/>
 				<ProjectTag
 					onClick={handleTagChange}
 					name='Mobile'
-					isSelected={tag === 'Mobile'}
+					isSelected={tagName === 'Mobile'}
 				/>
 			</div>
 			<motion.ul ref={ref}
@@ -81,7 +75,7 @@ export default function ProjectsSection({ data }) {
 				initial="visible"
 				animate="visible"
 			>
-				{filteredProjects.map((project, index) => (
+				{filteredProjects?.map((project, index) => (
 					<motion.li
 						key={index}
 						variants={cardVariants}
